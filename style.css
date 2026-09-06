@@ -335,3 +335,86 @@ tbody tr:hover {
     }
 
 }
+/* =========================
+   SEARCH BOX
+========================= */
+
+.search-box {
+    margin-top: 30px;
+}
+
+
+.search-box label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+
+    color: #333;
+}
+
+
+.search-box input {
+    width: 100%;
+
+    padding: 12px 15px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+
+.search-box input:focus {
+    outline: none;
+
+    border-color: #007bff;
+
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .search-box input {
+        font-size: 15px;
+
+        padding: 11px;
+    }
+
+}
+/* ================= FOOTER ================= */
+
+.footer {
+    margin-top: 40px;
+    padding: 25px 10px;
+    text-align: center;
+    background: #222;
+    color: white;
+    border-radius: 8px;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.footer .developer {
+    font-size: 16px;
+}
+.footer .developer a {
+    color: #00ffcc;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footer .developer a:hover {
+    color: #ffcc00;
+    text-decoration: underline;
+}
