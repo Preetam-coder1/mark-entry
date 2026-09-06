@@ -1,6 +1,8 @@
 let studentCount = 0;
 
 let editRow = null;
+const importBtn = document.getElementById("importBtn");
+const excelFile = document.getElementById("excelFile");
 
 
 // ========================================
@@ -406,3 +408,128 @@ searchInput.addEventListener("input", function () {
     });
 
 });
+// ========================================
+// IMPORT EXCEL
+// ========================================
+
+importBtn.addEventListener("click", function () {
+    excelFile.click();
+});
+
+excelFile.addEventListener("change", function (event) {
+
+    const file = event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+
+        try {
+
+            const data = new Uint8Array(e.target.result);
+
+            const workbook = XLSX.read(data, {
+                type: "array"
+            });
+
+            // First sheet select
+            const worksheet = workbook.Sheets[
+                workbook.SheetNames[0]
+            ];
+
+            // Excel → JSON
+            const students = XLSX.utils.sheet_to_json(
+                worksheet,
+                {
+                    defval: ""
+                }
+            );
+
+            if (students.length === 0) {
+                alert("Excel file is empty!");
+                return;
+            }
+
+            // Add each student to table
+            students.forEach(function (student) {
+
+                const name = student.Name || "";
+                const college = student.College || "";
+                const roll = student.Roll || "";
+                const marks = student.Marks || "";
+
+                addImportedStudent(
+                    name,
+                    college,
+                    roll,
+                    marks
+                );
+
+            });
+
+            alert("Excel data imported successfully!");
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Could not import Excel file. Please check the file format."
+            );
+
+        }
+
+        // Same file আবার select করার সুযোগ
+        excelFile.value = "";
+
+    };
+
+    reader.readAsArrayBuffer(file);
+
+});
+// ========================================
+// ADD IMPORTED STUDENT
+// ========================================
+
+function addImportedStudent(name, college, roll, marks) {
+
+    studentCount++;
+
+    const row = tableBody.insertRow();
+
+    row.insertCell(0).innerText = studentCount;
+    row.insertCell(1).innerText = name;
+    row.insertCell(2).innerText = college;
+    row.insertCell(3).innerText = roll;
+    row.insertCell(4).innerText = marks;
+
+    const actionCell = row.insertCell(5);
+
+    // EDIT BUTTON
+    const editButton = document.createElement("button");
+
+    editButton.innerText = "Edit";
+    editButton.className = "edit-btn";
+
+    editButton.addEventListener("click", function () {
+        editStudent(row);
+    });
+
+    actionCell.appendChild(editButton);
+
+    // DELETE BUTTON
+    const deleteButton = document.createElement("button");
+
+    deleteButton.innerText = "Delete";
+    deleteButton.className = "delete-btn";
+
+    deleteButton.addEventListener("click", function () {
+        deleteStudent(row);
+    });
+
+    actionCell.appendChild(deleteButton);
+}
