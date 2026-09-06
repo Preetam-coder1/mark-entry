@@ -101,171 +101,74 @@ addBtn.addEventListener("click", function () {
 
 function addStudent() {
 
-    // Get values
-
     const name = nameInput.value.trim();
-
     const college = collegeInput.value.trim();
-
     const roll = rollInput.value.trim();
-
     const marks = marksInput.value.trim();
 
-
-    // ====================================
-    // VALIDATION
-    // ====================================
-
-    if (
-        name === "" ||
-        college === "" ||
-        roll === "" ||
-        marks === ""
-    ) {
-
-        alert("Please fill all fields!");
-
-        return;
-
-    }
-
-
-    // Marks validation
-
-    if (Number(marks) < 0 || Number(marks) > 100) {
-
+    // Marks দেওয়া থাকলে শুধু তখন 0-100 check করবে
+    if (marks !== "" && (Number(marks) < 0 || Number(marks) > 100)) {
         alert("Marks must be between 0 and 100!");
-
         marksInput.focus();
-
         return;
-
     }
 
-
-    // ====================================
     // EDIT MODE
-    // ====================================
-
     if (editRow !== null) {
 
         editRow.cells[1].innerText = name;
-
         editRow.cells[2].innerText = college;
-
         editRow.cells[3].innerText = roll;
-
         editRow.cells[4].innerText = marks;
 
-
-        // Exit edit mode
-
         editRow = null;
-
         addBtn.innerText = "Add Student";
 
-
         clearInputs();
-
         nameInput.focus();
 
         return;
-
     }
 
-
-    // ====================================
     // ADD NEW STUDENT
-    // ====================================
-
     studentCount++;
-
-
-    // Create new row
 
     const row = tableBody.insertRow();
 
-
-    // ====================================
-    // SERIAL NUMBER
-    // ====================================
-
     row.insertCell(0).innerText = studentCount;
-
-
-    // ====================================
-    // STUDENT DATA
-    // ====================================
-
     row.insertCell(1).innerText = name;
-
     row.insertCell(2).innerText = college;
-
     row.insertCell(3).innerText = roll;
-
     row.insertCell(4).innerText = marks;
-
-
-    // ====================================
-    // ACTION CELL
-    // ====================================
 
     const actionCell = row.insertCell(5);
 
-
-    // ------------------------------------
     // EDIT BUTTON
-    // ------------------------------------
-
     const editButton = document.createElement("button");
 
     editButton.innerText = "Edit";
-
     editButton.className = "edit-btn";
 
-
     editButton.addEventListener("click", function () {
-
         editStudent(row);
-
     });
-
 
     actionCell.appendChild(editButton);
 
-
-    // ------------------------------------
     // DELETE BUTTON
-    // ------------------------------------
-
     const deleteButton = document.createElement("button");
 
     deleteButton.innerText = "Delete";
-
     deleteButton.className = "delete-btn";
 
-
     deleteButton.addEventListener("click", function () {
-
         deleteStudent(row);
-
     });
-
 
     actionCell.appendChild(deleteButton);
 
-
-    // ====================================
-    // CLEAR INPUTS
-    // ====================================
-
     clearInputs();
-
-
-    // আবার Name field-এ cursor যাবে
-
     nameInput.focus();
-
 }
 
 
@@ -461,3 +364,45 @@ document.getElementById("downloadBtn").addEventListener(
 
     }
 );
+// ========================================
+// SEARCH STUDENT BY NAME OR ROLL
+// ========================================
+
+const searchInput = document.getElementById("searchInput");
+
+
+searchInput.addEventListener("input", function () {
+
+    const searchValue = searchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    const rows = tableBody.querySelectorAll("tr");
+
+
+    rows.forEach(function (row) {
+
+        const name = row.cells[1].innerText.toLowerCase();
+
+        const roll = row.cells[3].innerText.toLowerCase();
+
+
+        // Name অথবা Roll match করলে দেখাবে
+
+        if (
+            name.includes(searchValue) ||
+            roll.includes(searchValue)
+        ) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+});
