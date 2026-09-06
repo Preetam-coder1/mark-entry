@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Student Marks Sheet</title>
-
+    <link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 
     <!-- Excel Library -->
@@ -69,15 +69,16 @@
 
 
             <button id="addBtn">
-                Add Student
+                <i class="fa-solid fa-plus"></i> Add Student
             </button>
+            
 
         </div>
 <!-- ================= SEARCH ================= -->
 
 <div class="search-box">
 
-    <label for="searchInput">Search Student</label>
+    <label for="searchInput"><i class="fa-solid fa-magnifying-glass"></i> Search Student</label>
 
     <input
         type="text"
@@ -116,13 +117,34 @@
             </table>
 
         </div>
+        <!-- ================= EXCEL ACTIONS ================= -->
+
+<div class="excel-actions">
+
+    <div class="excel-box">
+
+        <input
+            type="file"
+            id="excelFile"
+            accept=".xlsx, .xls"
+            hidden
+        >
+
+        <button class="import-btn" id="importBtn">
+            <i class="fa-solid fa-file-import"></i> Import Excel 
+        </button>
+    </div>
 
 
-        <!-- ================= EXCEL BUTTON ================= -->
+    <div class="excel-box">
 
         <button class="download-btn" id="downloadBtn">
-            Download Excel
+            <i class="fa-solid fa-download"></i> Download Excel 
         </button>
+    </div>
+
+</div>
+        
 
     </div>
 
