@@ -1,9 +1,7 @@
-// VARIABLES
 let studentCount = 0;
 
 let editRow = null;
-const saveDraftBtn = document.getElementById("saveDraftBtn");
-const clearDraftBtn = document.getElementById("clearDraftBtn");
+
 
 // ========================================
 // INPUT ELEMENTS
@@ -404,61 +402,6 @@ searchInput.addEventListener("input", function () {
             row.style.display = "none";
 
         }
-
-    });
-
-});
-// ========================================
-// LOAD SAVED DRAFT
-// ========================================
-
-window.addEventListener("load", function () {
-
-    const savedDraft = localStorage.getItem("studentDraft");
-
-    if (savedDraft === null) {
-        return;
-    }
-
-    const students = JSON.parse(savedDraft);
-
-    students.forEach(function (student) {
-
-        studentCount++;
-
-        const row = tableBody.insertRow();
-
-        row.insertCell(0).innerText = studentCount;
-        row.insertCell(1).innerText = student.name;
-        row.insertCell(2).innerText = student.college;
-        row.insertCell(3).innerText = student.roll;
-        row.insertCell(4).innerText = student.marks;
-
-        const actionCell = row.insertCell(5);
-
-        // EDIT BUTTON
-        const editButton = document.createElement("button");
-
-        editButton.innerText = "Edit";
-        editButton.className = "edit-btn";
-
-        editButton.addEventListener("click", function () {
-            editStudent(row);
-        });
-
-        actionCell.appendChild(editButton);
-
-        // DELETE BUTTON
-        const deleteButton = document.createElement("button");
-
-        deleteButton.innerText = "Delete";
-        deleteButton.className = "delete-btn";
-
-        deleteButton.addEventListener("click", function () {
-            deleteStudent(row);
-        });
-
-        actionCell.appendChild(deleteButton);
 
     });
 
