@@ -121,10 +121,10 @@ function addStudent() {
 
     if (
         marks !== "" &&
-        (Number(marks) < 0 || Number(marks) > 100)
+        (Number(marks) < 0 || Number(marks) > 1000)
     ) {
 
-        alert("Marks must be between 0 and 100!");
+        alert("Marks must be between 0 and 1000!");
 
         marksInput.focus();
 
